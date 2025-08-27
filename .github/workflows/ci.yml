@@ -1,0 +1,56 @@
+name: CI - Cypress
+
+on:
+  push:
+    branches: ["**"]
+  pull_request:
+
+jobs:
+  e2e:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Install deps
+        run: npm ci
+
+      # Démarre le serveur + lance Cypress en headless (utilise ton script `test`)
+      - name: Run Cypress
+        run: npm test
+
+      # Génère le rapport HTML mochawesome
+      - name: Build Mochawesome report
+        run: npm run report
+
+      # Upload du rapport en artifact du job
+      - name: Upload report artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: mochawesome-report
+          path: |
+            cypress/results/index.html
+            cypress/results/*.json
+
+      # Notification Discord quoi qu'il arrive (succès/échec)
+      - name: Discord notify
+        if: always()
+        env:
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+          GITHUB_ACTOR: ${{ github.actor }}
+          GITHUB_REPO: ${{ github.repository }}
+          GITHUB_REF: ${{ github.ref_name }}
+          JOB_STATUS: ${{ job.status }}
+        run: |
+          STATUS_EMOJI="✅"
+          if [ "$JOB_STATUS" != "success" ]; then STATUS_EMOJI="❌"; fi
+          CONTENT="$STATUS_EMOJI Build **$JOB_STATUS** — $GITHUB_REPO@$GITHUB_REF (par $GITHUB_ACTOR)"
+          curl -H "Content-Type: application/json" \
+               -d "{\"content\":\"$CONTENT\"}" \
+               "$DISCORD_WEBHOOK_URL"

@@ -1,0 +1,129 @@
+{
+  "stats": {
+    "suites": 1,
+    "tests": 1,
+    "passes": 0,
+    "pending": 0,
+    "failures": 1,
+    "start": "2025-08-27T12:30:21.122Z",
+    "end": "2025-08-27T12:30:21.356Z",
+    "duration": 234,
+    "testsRegistered": 2,
+    "passPercent": 0,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 1,
+    "hasSkipped": true
+  },
+  "results": [
+    {
+      "uuid": "04e1843b-ce58-45e3-b58b-72fff6176c9a",
+      "title": "",
+      "fullFile": "e2e\\sccroll.cy.js",
+      "file": "e2e\\sccroll.cy.js",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "2015cb4b-2f61-4a13-9acc-1b49737066e5",
+          "title": "Scroll to Top Button",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "Le bouton scroll-to-top apparait quand on scrolle vers le bas",
+              "fullTitle": "Scroll to Top Button Le bouton scroll-to-top apparait quand on scrolle vers le bas",
+              "timedOut": null,
+              "duration": 165,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": null,
+              "code": "// Vérifie qu’au départ il n’est pas visible\ncy.get(\".fixed.bottom-3.right-3\").should(\"not.be.visible\");\n// Scrolle vers le bas\ncy.scrollTo(\"bottom\");\ncy.wait(500); // petite pause pour que AlpineJS détecte le scroll\n// Vérifie qu’il est visible\ncy.get(\".fixed.bottom-3.right-3\").should(\"be.visible\");",
+              "err": {
+                "message": "CypressError: `cy.visit()` failed trying to load:\n\nhttp://localhost:5173/components/scroll-to-top.html\n\nThe response we received from your web server was:\n\n  > 404: Not Found\n\nThis was considered a failure because the status code was not `2xx`.\n\nIf you do not want status codes to cause failures pass the option: `failOnStatusCode: false`\n\nBecause this error occurred during a `before each` hook we are skipping the remaining tests in the current suite: `Scroll to Top Button`",
+                "estack": "CypressError: `cy.visit()` failed trying to load:\n\nhttp://localhost:5173/components/scroll-to-top.html\n\nThe response we received from your web server was:\n\n  > 404: Not Found\n\nThis was considered a failure because the status code was not `2xx`.\n\nIf you do not want status codes to cause failures pass the option: `failOnStatusCode: false`\n\nBecause this error occurred during a `before each` hook we are skipping the remaining tests in the current suite: `Scroll to Top Button`\n    at <unknown> (http://localhost:5173/__cypress/runner/cypress_runner.js:135067:76)\n    at visitFailedByErr (http://localhost:5173/__cypress/runner/cypress_runner.js:134637:12)\n    at <unknown> (http://localhost:5173/__cypress/runner/cypress_runner.js:135050:13)\n    at tryCatcher (http://localhost:5173/__cypress/runner/cypress_runner.js:1777:23)\n    at Promise._settlePromiseFromHandler (http://localhost:5173/__cypress/runner/cypress_runner.js:1489:31)\n    at Promise._settlePromise (http://localhost:5173/__cypress/runner/cypress_runner.js:1546:18)\n    at Promise._settlePromise0 (http://localhost:5173/__cypress/runner/cypress_runner.js:1591:10)\n    at Promise._settlePromises (http://localhost:5173/__cypress/runner/cypress_runner.js:1667:18)\n    at _drainQueueStep (http://localhost:5173/__cypress/runner/cypress_runner.js:2377:12)\n    at _drainQueue (http://localhost:5173/__cypress/runner/cypress_runner.js:2370:9)\n    at Async._drainQueues (http://localhost:5173/__cypress/runner/cypress_runner.js:2386:5)\n    at Async.drainQueues (http://localhost:5173/__cypress/runner/cypress_runner.js:2256:14)\nFrom Your Spec Code:\n    at Context.eval (webpack://cypress-components/./e2e/sccroll.cy.js:3:7)",
+                "diff": null
+              },
+              "uuid": "fbdc13dd-ea8c-46c1-89af-c737e2b5a3b5",
+              "parentUUID": "2015cb4b-2f61-4a13-9acc-1b49737066e5",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Clique sur le bouton ramène en haut de la page et le bouton disparait",
+              "fullTitle": "Scroll to Top Button Clique sur le bouton ramène en haut de la page et le bouton disparait",
+              "timedOut": null,
+              "duration": 0,
+              "state": "skipped",
+              "speed": null,
+              "pass": false,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "// Scrolle vers le bas pour faire apparaitre le bouton\ncy.scrollTo(\"bottom\");\ncy.wait(500);\ncy.get(\".fixed.bottom-3.right-3\").should(\"be.visible\");\n// Clique dessus\ncy.get(\".fixed.bottom-3.right-3 button\").click();\ncy.wait(1000);\n// Vérifie que la page est revenue en haut\ncy.window().its(\"scrollY\").should(\"eq\", 0);\n// Vérifie que le bouton a disparu\ncy.get(\".fixed.bottom-3.right-3\").should(\"not.be.visible\");",
+              "err": {},
+              "uuid": "c616f8f4-3ed4-42a9-89ea-acbca4bb5102",
+              "parentUUID": "2015cb4b-2f61-4a13-9acc-1b49737066e5",
+              "isHook": false,
+              "skipped": true
+            }
+          ],
+          "suites": [],
+          "passes": [],
+          "failures": [
+            "fbdc13dd-ea8c-46c1-89af-c737e2b5a3b5"
+          ],
+          "pending": [],
+          "skipped": [
+            "c616f8f4-3ed4-42a9-89ea-acbca4bb5102"
+          ],
+          "duration": 165,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "7.2.0"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": false,
+        "reportFilename": "mochawesome",
+        "saveHtml": false,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "7.1.3"
+    },
+    "marge": {
+      "options": {
+        "reportDir": "cypress/results",
+        "overwrite": false,
+        "html": false,
+        "json": true
+      },
+      "version": "6.2.0"
+    }
+  }
+}
