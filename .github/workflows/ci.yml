@@ -4,6 +4,7 @@ on:
   push:
     branches: ["**"]
   pull_request:
+  workflow_dispatch:
 
 jobs:
   e2e:
@@ -17,20 +18,21 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 18
+          cache: "npm"
 
       - name: Install deps
         run: npm ci
 
-      # Démarre le serveur + lance Cypress en headless (utilise ton script `test`)
-      - name: Run Cypress
+      # Démarre http-server et lance Cypress headless via ton script npm "test"
+      - name: Run Cypress (start server + headless tests)
         run: npm test
 
-      # Génère le rapport HTML mochawesome
+      # Génère le rapport Mochawesome (JSON -> HTML)
       - name: Build Mochawesome report
         run: npm run report
 
-      # Upload du rapport en artifact du job
-      - name: Upload report artifact
+      # Upload le rapport en artifact du job
+      - name: Upload mochawesome artifact
         uses: actions/upload-artifact@v4
         with:
           name: mochawesome-report
@@ -38,7 +40,7 @@ jobs:
             cypress/results/index.html
             cypress/results/*.json
 
-      # Notification Discord quoi qu'il arrive (succès/échec)
+      # Notification Discord (succès ou échec)
       - name: Discord notify
         if: always()
         env:
